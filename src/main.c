@@ -3,9 +3,9 @@
 
 int main() 
 {
+    init_board();
     for (;;) 
     {
-        init_board();
         draw_board();
     }
 }

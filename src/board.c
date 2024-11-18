@@ -39,20 +39,6 @@ void init_board()
     board[1][1] = 1;
 }
 
-int count_neighbors(size_t x, size_t y) 
-{
-    int neighbors_count = 0;
-    if (x > BOARD_LENGTH || x < 0 || y > BOARD_HEIGHT || y < 0 )
-        return -1;
-
-    for (int j = max(y - 1, 0); j <= min(y + 1, BOARD_HEIGHT); j++)
-        for (int i = max(x - 1, 0); i <= min(x + 1, BOARD_LENGTH); i++)
-            if (!(j == y && i == x))
-                neighbors_count += board[j][i];
-
-    return neighbors_count;
-}
-
 void draw_board() 
 {
     clear();
@@ -66,3 +52,17 @@ void draw_board()
     usleep(SLEEP_TIME);
 }
 
+
+int count_neighbors(int **board, size_t board_length, size_t board_height, size_t x, size_t y) 
+{
+    int neighbors_count = 0;
+    if (x > board_length || x < 0 || y > board_height || y < 0 )
+        return -1;
+
+    for (int j = max(y - 1, 0); j <= min(y + 1, board_height); j++)
+        for (int i = max(x - 1, 0); i <= min(x + 1, board_length); i++)
+            if (!(j == y && i == x))
+                neighbors_count += board[j][i];
+
+    return neighbors_count;
+}

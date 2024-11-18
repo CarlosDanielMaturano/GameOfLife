@@ -12,4 +12,4 @@ void init_board();
 // @ ^ * ^ @ 
 // @ ^ ^ ^ @
 // @ @ @ @ @
-int count_neighbors(size_t x, size_t y);
+int count_neighbors(int **board, size_t board_length, size_t board_height, size_t x, size_t y);

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "board.h"
 #define BOARD_LENGTH 100
-#define BOARD_HEIGHT 40
+#define BOARD_HEIGHT 30
 
 int main() 
 {

@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <time.h>
 #include "board.h"
-#define SLEEP_TIME 200000
+#define SLEEP_TIME 180000
 #define EMPTY 0
 
 Board board;
@@ -25,6 +25,9 @@ Board init_board(size_t board_length, size_t board_height)
     cbreak();
     noecho();
     srand(time(NULL));
+    start_color();
+
+    init_pair(1, COLOR_GREEN, COLOR_BLACK);
 
     Board board;
     
@@ -45,12 +48,14 @@ Board init_board(size_t board_length, size_t board_height)
 void draw_board(Board board) 
 {
     clear();
+    attron(COLOR_PAIR(1));
     for (size_t j = 0; j < board.height; j++) 
     {
         for (size_t i = 0; i < board.length; i++) 
             addch((board.board[j][i]) ? '#' : ' ');
         addch('\n'); 
     }
+    attroff(COLOR_PAIR(1));
     refresh();
     usleep(SLEEP_TIME);
 }
@@ -98,4 +103,3 @@ void update_board(Board* board)
         for (int x = 0; x < board->length; x++)
             board->board[y][x] = new_board[y][x];
 }
-

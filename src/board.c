@@ -33,6 +33,8 @@ Board init_board(size_t board_length, size_t board_height)
     
     board.length = board_length;
     board.height = board_height;
+    board.generation = 0;
+    board.population = 0;
 
     board.board = (size_t **) malloc(board.height * sizeof(size_t));
     for (size_t j = 0; j < board.height; j++)
@@ -56,6 +58,8 @@ void draw_board(Board board)
         addch('\n'); 
     }
     attroff(COLOR_PAIR(1));
+    printw("\ngeneration: %d\n", board.generation);
+    printw("\population: %d\n", board.population);
     refresh();
     usleep(SLEEP_TIME);
 }
@@ -74,8 +78,10 @@ int count_neighbors(Board* board, int x, int y)
     return neighbors_count;
 }
 
+
 void update_board(Board* board) 
 {
+    board->population = 0;
     int new_board[board->height][board->length];
     for (int y = 0; y < board->height; y++)
         for (int x = 0; x < board->length; x++)
@@ -101,5 +107,10 @@ void update_board(Board* board)
 
     for (int y = 0; y < board->height; y++)
         for (int x = 0; x < board->length; x++)
+        {
             board->board[y][x] = new_board[y][x];
+            if (board->board[y][x])
+                board->population++;
+        }
+    board->generation++;
 }

@@ -3,6 +3,8 @@ typedef struct {
     size_t **board;
     size_t length; 
     size_t height;
+    int generation;
+    int population;
 } Board;
 
 void draw_board(Board board);

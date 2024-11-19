@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <ncursesw/curses.h>
 #include <unistd.h>
+#include <time.h>
 #include "board.h"
 #define SLEEP_TIME 200000
 #define EMPTY 0
@@ -23,6 +24,7 @@ Board init_board(size_t board_length, size_t board_height)
     initscr();
     cbreak();
     noecho();
+    srand(time(NULL));
 
     Board board;
     
@@ -34,7 +36,7 @@ Board init_board(size_t board_length, size_t board_height)
     {
         board.board[j] = (size_t *) malloc(board.length * sizeof(size_t));
         for (size_t i = 0; i < board.length; i++)
-            board.board[j][i] = rand() % 8;
+            board.board[j][i] = rand() % 2; 
     }
         
     return board;
@@ -69,6 +71,7 @@ int count_neighbors(Board* board, int x, int y)
 
 void update_board(Board* board) 
 {
+    int new_board[board->height][board->length];
     for (int y = 0; y < board->height; y++)
         for (int x = 0; x < board->length; x++)
         {
@@ -76,15 +79,23 @@ void update_board(Board* board)
 
             if (neighbors_count == -1)
                     continue;
+
+            // RULES: https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
+            
             //Any live cell with fewer than two live neighbours dies, as if by underpopulation.
             if (neighbors_count < 2)
-                board->board[y][x] = 0;
+                new_board[y][x] = 0;
             // Any live cell with more than three live neighbours dies, as if by overpopulation.
             if (neighbors_count > 3)
-                board->board[y][x] = 0;
+                new_board[y][x] = 0;
             // Any dead cell with exactly three live neighbours becomes a live cell,
             // as if by reproduction.
             if (board->board[y][x] == 0 && neighbors_count == 3)
-                board->board[y][x] = 1;
+                new_board[y][x] = 1;
         }
+
+    for (int y = 0; y < board->height; y++)
+        for (int x = 0; x < board->length; x++)
+            board->board[y][x] = new_board[y][x];
 }
+

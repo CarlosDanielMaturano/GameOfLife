@@ -9,5 +9,6 @@ int main()
     for (;;) 
     {
         draw_board(board);
+        update_board(&board);
     }
 }

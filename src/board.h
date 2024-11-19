@@ -18,4 +18,8 @@ Board init_board(size_t board_length, size_t board_height);
 // @ ^ * ^ @ 
 // @ ^ ^ ^ @
 // @ @ @ @ @
-int count_neighbors(Board board, size_t x, size_t y);
+int count_neighbors(Board* board, int x, int y);
+
+// Update the cells on a given board, using the conway's game 
+// of life rules
+void update_board(Board* board);

@@ -22,6 +22,8 @@ static inline int min(int a, int b)
 void cast_curses()
 {
     initscr();
+    nodelay(stdscr, TRUE);
+
     cbreak();
     noecho();
     srand(time(NULL));
@@ -31,9 +33,16 @@ void cast_curses()
 }
 
 
+void reset_board_population(Board* board)
+{
+    board->generation = 0;
+    for (size_t j = 0; j < board->height; j++)
+        for (size_t i = 0; i < board->length; i++)
+            board->board[j][i] = rand() % 2;
+}
+
 Board init_board(size_t board_length, size_t board_height) 
 {
-
     Board board;
     
     board.length = board_length;

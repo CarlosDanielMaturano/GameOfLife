@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <time.h>
 #include "board.h"
-#define SLEEP_TIME 180000
+#define SLEEP_TIME 200000
 #define EMPTY 0
 
 Board board;

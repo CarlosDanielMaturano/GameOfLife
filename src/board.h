@@ -8,7 +8,9 @@ typedef struct {
 } Board;
 
 void draw_board(Board board);
-// initialize ncurses and create a new Board
+// initialize ncurses
+void cast_curses();
+// Create a  new Board
 Board init_board(size_t board_length, size_t board_height);
 
 // Returns the number of alive neighbors surrounding a specified cell on the board.

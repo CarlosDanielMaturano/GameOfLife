@@ -5,6 +5,7 @@
 
 int main() 
 {
+    cast_curses();
     Board board = init_board(BOARD_LENGTH, BOARD_HEIGHT);
     for (;;) 
     {

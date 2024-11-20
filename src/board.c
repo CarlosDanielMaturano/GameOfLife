@@ -19,7 +19,7 @@ static inline int min(int a, int b)
     return (a < b) ? a : b;
 }
 
-Board init_board(size_t board_length, size_t board_height) 
+void cast_curses()
 {
     initscr();
     cbreak();
@@ -28,6 +28,11 @@ Board init_board(size_t board_length, size_t board_height)
     start_color();
 
     init_pair(1, COLOR_GREEN, COLOR_BLACK);
+}
+
+
+Board init_board(size_t board_length, size_t board_height) 
+{
 
     Board board;
     
@@ -59,7 +64,7 @@ void draw_board(Board board)
     }
     attroff(COLOR_PAIR(1));
     printw("\ngeneration: %d\n", board.generation);
-    printw("\population: %d\n", board.population);
+    printw("population: %d\n", board.population);
     refresh();
     usleep(SLEEP_TIME);
 }
@@ -81,6 +86,8 @@ int count_neighbors(Board* board, int x, int y)
 
 void update_board(Board* board) 
 {
+    // First, the function create a new 2d array, 
+    // based on how the board should be update
     board->population = 0;
     int new_board[board->height][board->length];
     for (int y = 0; y < board->height; y++)
@@ -105,6 +112,7 @@ void update_board(Board* board)
                 new_board[y][x] = 1;
         }
 
+    // Actually update the board
     for (int y = 0; y < board->height; y++)
         for (int x = 0; x < board->length; x++)
         {
@@ -112,5 +120,6 @@ void update_board(Board* board)
             if (board->board[y][x])
                 board->population++;
         }
+
     board->generation++;
 }

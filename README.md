@@ -4,6 +4,7 @@
 ### Dependencies: :memo:
 - make
 - clang
+- ncurses
 
 ### NOTE: 
 The project includes a flake.nix with all depedencies listed

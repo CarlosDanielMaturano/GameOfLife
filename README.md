@@ -20,10 +20,10 @@ make build
 make run
 ```
 
-### Building & Running project:
+### Building & Running project: 
 ```bash
 make all
 ```
 
 ### License :scroll:
-The project is under the [MIT](./LINCESE) License
+The project is under the [MIT](./LICENSE) License
